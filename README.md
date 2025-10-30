@@ -8,7 +8,7 @@ Project Layout
 
 - `analyzer.py` — main CLI program
 - `sample_data.csv` — example dataset
-- `tests/` — unit tests
+- `test_analyzer.py` — unit tests for analyzer.py
 
 Requirements and Installation
 -----------------------------
@@ -17,7 +17,7 @@ Python 3.9+ is recommended. The analyzer itself uses only the standard library. 
 
 ```
 python -m venv .venv
-source .venv/bin/activate   # on Windows: .venv\\Scripts\\activate
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -57,7 +57,7 @@ python analyzer.py sample_data.csv --device device_b_003
 python analyzer.py sample_data.csv --metric temperature
 ```
 
-- Date range (day granularity):
+- Date range:
 
 ```
 python analyzer.py sample_data.csv --start-date "2025-01-02" --end-date "2025-01-05"
@@ -106,11 +106,3 @@ Running Tests
 ```
 pytest -q
 ```
-
-Notes
------
-
-- Standard deviation is computed as population standard deviation (divide by N).
-- The CLI exits cleanly on file read errors and invalid date formats.
-
-
