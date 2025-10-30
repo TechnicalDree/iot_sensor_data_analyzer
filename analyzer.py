@@ -1,6 +1,6 @@
 import csv
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timezone
 import argparse
 import math
 
@@ -70,7 +70,11 @@ def parse_datetime(date_str):
 
     for fmt in formats:
         try:
-            return datetime.strptime(date_str, fmt)
+            dt = datetime.strptime(date_str, fmt)
+            # Ensure timezone-aware (UTC) for consistent comparisons
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            return dt
         except ValueError:
             continue
     
@@ -117,10 +121,6 @@ def convert_to_float(value_str):
         return None
 
 def compute_statistics(values):
-    """Compute statistical measures for a list of values.
-    
-    Returns: dict with average, min, max, count, std_dev
-    """
     # Filter out None values
     valid_values = [v for v in values if v is not None]
     
